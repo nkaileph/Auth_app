@@ -12,5 +12,9 @@ router.post('/signout',identifier, authController.signout);
 router.patch('/send-verification-code',identifier ,authController.sendVerificationCode);
 router.patch('/verify-verification-code',identifier, authController.verifyVerificationCode);
 
+router.patch(
+    '/change-password',
+    identifier,
+    authController.changePassword);
 
 module.exports = router;

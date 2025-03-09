@@ -1,39 +1,35 @@
 const Joi = require('joi');
 
-exports.signupSchema = Joi.object({
-    email: Joi.string()
-    .min(6)
-    .max(60)
-    .required()
-    .email({
-        tlds: { allow: ['com', 'net'] },
-    }),
-    password: Joi.string()
-    .required()
-    .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*d).{8,}$')),
+const signupSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
 });
 
-exports.signinSchema = Joi.object({
-    email: Joi.string()
-    .min(6)
-    .max(60)
-    .required()
-    .email({
-        tlds: { allow: ['com', 'net'] },
-    }),
-    password: Joi.string()
-    .required()
-    .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*d).{8,}$')),
+const signinSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
 });
 
-exports.acceptedCodeSchema = Joi.object({
-    email: Joi.string()
-    .min(6)
-    .max(60)
-    .required()
-    .email({
-        tlds: { allow: ['com', 'net'] },
-    }),
-    providedCode: Joi.number()
-    .required()
-})
+const acceptCodeSchema = Joi.object({
+    email: Joi.string().email().required(),
+    providedCode: Joi.string().required(),
+});
+
+const changePasswordSchema = Joi.object({
+    oldPassword: Joi.string().required(),
+    newPassword: Joi.string().min(6).required(),
+});
+
+const acceptFPCodeSchema = Joi.object({
+    email: Joi.string().email().required(),
+    providedCode: Joi.string().required(),
+    newPassword: Joi.string().min(6).required(),
+});
+
+module.exports = {
+    signupSchema,
+    signinSchema,
+    acceptCodeSchema,
+    changePasswordSchema,
+    acceptFPCodeSchema,
+};
