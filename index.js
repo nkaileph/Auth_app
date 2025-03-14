@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer/lib/dkim');
 const mongoose = require('mongoose');
 
 const authRouter = require('./routers/authRouter');
+const postsRouter = require('./routers/postsRouter');
 
 const app = express();
 app.use(cors());
@@ -26,6 +27,7 @@ mongoose
 );
 
 app.use('/api/auth',authRouter);
+app.use('/api/posts',postsRouter);
 
 app.get('/', (req, res) => {
     res.json({message: "Hello from the server!"})
